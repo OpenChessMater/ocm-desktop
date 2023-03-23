@@ -3,7 +3,7 @@
 //int main(int argc, char *argv[])
 //{
 //    Game g;
-//    g.run();
+//    g.Run();
 //
 //    return 0;
 //}
@@ -13,7 +13,7 @@
 int main(int argc, char* argv[]) {
     Game g;
     g.Initialize();
-    g.run();
+    g.Run();
     g.Destroy();
 
     return 0;

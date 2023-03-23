@@ -6,18 +6,25 @@
 #define OCM_DESKTOP_GAME_H
 
 #include <SDL2/SDL.h>
+#include "tempo.h"
+#include "board.h"
 
 class Game
 {
 private:
-    SDL_Window *window;
-    SDL_Renderer *renderer;
-    SDL_Surface* lettuce_sur;
-    SDL_Texture* lettuce_tex;
+    SDL_Window *window{};
+    SDL_Renderer *renderer{};
+    SDL_Surface* lettuce_sur{};
+    SDL_Texture* lettuce_tex{};
+
+    Tempo tempo;
+    Tempo tempo2;
+    Board board;
+
 public:
     Game();
     void Initialize();
-    void run();
+    void Run();
     void Destroy();
 
     ~Game();

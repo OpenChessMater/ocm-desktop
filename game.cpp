@@ -8,10 +8,7 @@
 #include <iostream>
 
 
-Game::Game()
-{
-
-}
+Game::Game() = default;
 
 
 void Game::Initialize() {
@@ -25,32 +22,38 @@ void Game::Initialize() {
         exit(2);
     }
 
-    window = SDL_CreateWindow("First program", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 600, SDL_WINDOW_OPENGL);
+    this->window = SDL_CreateWindow("First program", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 600, SDL_WINDOW_OPENGL);
     if (window == NULL) {
         std::cout << "Error window creation";
         exit(3);
     }
 
-    renderer = SDL_CreateRenderer(window, -1,SDL_RENDERER_ACCELERATED);
+    this->renderer = SDL_CreateRenderer(window, -1,SDL_RENDERER_ACCELERATED);
     if (renderer == NULL) {
         std::cout << "Error renderer creation";
         exit(4);
     }
 
-    lettuce_sur = IMG_Load("../resources/chess-bishop.153x256.png");
-    if (lettuce_sur == NULL) {
+    this->tempo.Initialize(this->renderer, 300, 100);
+    this->tempo2.Initialize(this->renderer, 100, 100);
+    this->board.Initialize(this->renderer);
+}
+
+void Game::Run() {
+
+    this->lettuce_sur = IMG_Load("../resources/chess-bishop.153x256.png");
+    if (this->lettuce_sur == NULL) {
         std::cout << "Error loading image: " << IMG_GetError();
         exit(5);
     }
 
-    lettuce_tex = SDL_CreateTextureFromSurface(renderer, lettuce_sur);
-    if (lettuce_tex == NULL) {
+    this->lettuce_tex = SDL_CreateTextureFromSurface(this->renderer, this->lettuce_sur);
+    if (this->lettuce_tex == NULL) {
         std::cout << "Error creating texture";
         exit(6);
     }
 
-    SDL_FreeSurface(lettuce_sur);
-
+    SDL_FreeSurface(this->lettuce_sur);
     SDL_Rect destrect;
     destrect.w = 153;
     destrect.h = 256;
@@ -76,31 +79,35 @@ void Game::Initialize() {
             }
         }
 
-        SDL_RenderClear(renderer);
+        SDL_RenderClear(this->renderer);
 
+//
+//        SDL_SetRenderDrawColor(this->renderer, 250, 0, 100, 0);
+//        SDL_RenderFillRect(this->renderer, &rect);
+//
+//
+//        SDL_SetRenderDrawColor(this->renderer, 0, 250, 100, 0);
+//        SDL_RenderFillRect(this->renderer, &rect2);
+//
+//
+//        SDL_SetRenderDrawColor(this->renderer, 0, 0, 0, 0);
 
-        SDL_SetRenderDrawColor(renderer, 250, 0, 100, 0);
-        SDL_RenderFillRect(renderer, &rect);
+        this->board.Render(this->renderer);
 
+        SDL_RenderCopy(this->renderer, this->lettuce_tex, NULL, &rect2);
 
-        SDL_SetRenderDrawColor(renderer, 0, 250, 100, 0);
-        SDL_RenderFillRect(renderer, &rect2);
+        this->tempo.Render(this->renderer);
+        this->tempo2.Render(this->renderer);
 
-
-        SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
-
-        SDL_RenderCopy(renderer, lettuce_tex, NULL, &destrect);
-
-        SDL_RenderPresent(renderer);
+        SDL_RenderPresent(this->renderer);
     }
-
-}
-
-void Game::run() {
-
 }
 
 void Game::Destroy() {
+    this->tempo.Destroy();
+    this->tempo2.Destroy();
+    this->board.Destroy();
+
     SDL_DestroyTexture(lettuce_tex);
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
