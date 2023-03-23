@@ -12,6 +12,7 @@
 
 int main(int argc, char* argv[]) {
     Game g;
+    g.Initialize();
     g.run();
     g.Destroy();
 

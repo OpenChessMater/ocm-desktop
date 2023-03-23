@@ -10,6 +10,11 @@
 
 Game::Game()
 {
+
+}
+
+
+void Game::Initialize() {
     if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS) < 0) {
         std::cout << "Error SDL2 Initialization : " << SDL_GetError();
         exit(1);
@@ -20,25 +25,25 @@ Game::Game()
         exit(2);
     }
 
-    SDL_Window* window = SDL_CreateWindow("First program", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 600, SDL_WINDOW_OPENGL);
+    window = SDL_CreateWindow("First program", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 600, SDL_WINDOW_OPENGL);
     if (window == NULL) {
         std::cout << "Error window creation";
         exit(3);
     }
 
-    SDL_Renderer* renderer = SDL_CreateRenderer(window, -1,SDL_RENDERER_ACCELERATED);
+    renderer = SDL_CreateRenderer(window, -1,SDL_RENDERER_ACCELERATED);
     if (renderer == NULL) {
         std::cout << "Error renderer creation";
         exit(4);
     }
 
-    SDL_Surface* lettuce_sur = IMG_Load("../resources/chess-bishop.153x256.png");
+    lettuce_sur = IMG_Load("../resources/chess-bishop.153x256.png");
     if (lettuce_sur == NULL) {
         std::cout << "Error loading image: " << IMG_GetError();
         exit(5);
     }
 
-    SDL_Texture* lettuce_tex = SDL_CreateTextureFromSurface(renderer, lettuce_sur);
+    lettuce_tex = SDL_CreateTextureFromSurface(renderer, lettuce_sur);
     if (lettuce_tex == NULL) {
         std::cout << "Error creating texture";
         exit(6);
@@ -89,35 +94,17 @@ Game::Game()
         SDL_RenderPresent(renderer);
     }
 
+}
+
+void Game::run() {
+
+}
+
+void Game::Destroy() {
     SDL_DestroyTexture(lettuce_tex);
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
     IMG_Quit();
-    SDL_Quit();
-}
-
-
-void Game::Initialize() {
-
-}
-
-void Game::run() {
-    while (true) {
-        SDL_Event e;
-        if (SDL_PollEvent(&e)) {
-            if (e.type == SDL_QUIT) {
-                break;
-            }
-        }
-
-        SDL_RenderClear(renderer);
-//        SDL_RenderCopy(renderer, lettuce_tex, NULL, NULL);
-        SDL_RenderPresent(renderer);
-    }
-}
-
-void Game::Destroy() {
-    SDL_DestroyWindow(this->window);
     SDL_Quit();
 }
 
