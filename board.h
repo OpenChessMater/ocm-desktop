@@ -13,6 +13,9 @@ class Board {
 
     SDL_Rect rect;
     SDL_Rect rect2;
+
+    SDL_Color color1{87,57,46,0};
+    SDL_Color color2{138,120,93,0};
 public:
 //    Board();
 

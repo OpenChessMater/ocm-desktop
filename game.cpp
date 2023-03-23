@@ -40,37 +40,6 @@ void Game::Initialize() {
 }
 
 void Game::Run() {
-
-    this->lettuce_sur = IMG_Load("../resources/chess-bishop.153x256.png");
-    if (this->lettuce_sur == NULL) {
-        std::cout << "Error loading image: " << IMG_GetError();
-        exit(5);
-    }
-
-    this->lettuce_tex = SDL_CreateTextureFromSurface(this->renderer, this->lettuce_sur);
-    if (this->lettuce_tex == NULL) {
-        std::cout << "Error creating texture";
-        exit(6);
-    }
-
-    SDL_FreeSurface(this->lettuce_sur);
-    SDL_Rect destrect;
-    destrect.w = 153;
-    destrect.h = 256;
-
-    SDL_Rect rect;
-    rect.x = 10;
-    rect.y = 10;
-    rect.w = 100;
-    rect.h = 160;
-
-
-    SDL_Rect rect2;
-    rect2.x = 10 + rect.x +rect.w;
-    rect2.y = 10 + rect.y + rect.h;
-    rect2.w = 150;
-    rect2.h = 160;
-
     while (true) {
         SDL_Event e;
         if (SDL_PollEvent(&e)) {
@@ -81,20 +50,7 @@ void Game::Run() {
 
         SDL_RenderClear(this->renderer);
 
-//
-//        SDL_SetRenderDrawColor(this->renderer, 250, 0, 100, 0);
-//        SDL_RenderFillRect(this->renderer, &rect);
-//
-//
-//        SDL_SetRenderDrawColor(this->renderer, 0, 250, 100, 0);
-//        SDL_RenderFillRect(this->renderer, &rect2);
-//
-//
-//        SDL_SetRenderDrawColor(this->renderer, 0, 0, 0, 0);
-
         this->board.Render(this->renderer);
-
-        SDL_RenderCopy(this->renderer, this->lettuce_tex, NULL, &rect2);
 
         this->tempo.Render(this->renderer);
         this->tempo2.Render(this->renderer);
@@ -108,7 +64,6 @@ void Game::Destroy() {
     this->tempo2.Destroy();
     this->board.Destroy();
 
-    SDL_DestroyTexture(lettuce_tex);
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
     IMG_Quit();
