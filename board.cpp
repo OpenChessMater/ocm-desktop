@@ -38,6 +38,21 @@ void Board::Render(SDL_Renderer *renderer) {
 
             SDL_RenderFillRect(renderer, &r);
 
+            bool isHinted = false;
+            for (const auto &item: this->hintedCells)
+            {
+                if (item.first == i && item.second == j) {
+                    isHinted = true;
+                    break;
+                }
+            }
+
+            if (isHinted) {
+                SDL_SetRenderDrawColor(renderer, cellMoveHintFillColor.r, cellMoveHintFillColor.g, cellMoveHintFillColor.b,
+                                       cellMoveHintFillColor.a);
+            }
+            SDL_RenderFillRect(renderer, &r);
+
             if (i == hoverI && j == hoverJ) {
                 SDL_SetRenderDrawColor(renderer, cellHoverBorderColor.r, cellHoverBorderColor.g, cellHoverBorderColor.b,
                                        cellHoverBorderColor.a);
@@ -80,16 +95,6 @@ void Board::Render(SDL_Renderer *renderer) {
             }
         }
     }
-
-//    this->piece.RenderPawn(renderer, 300, 100, false);
-//    this->piece.RenderKnight(renderer, 200, 100, false);
-//    this->piece.RenderBishop(renderer, 0, 0, false);
-//    this->piece.RenderRock(renderer, 0, 0, true);
-//    this->piece.RenderQueen(renderer, 100, 100, false);
-//    this->piece.RenderQueen(renderer, 100, 0, false);
-//    this->piece.RenderKing(renderer, 170, 0, true);
-//    this->piece.RenderKing(renderer, 290, 0, false);
-
 }
 
 void Board::Destroy() {
@@ -111,8 +116,10 @@ void Board::MouseButtonUp(int x, int y)
         this->selectedI = i;
         this->selectedJ = j;
         this->state = SELECTED;
+        this->hintedCells = Logic::GetInstance()->AvailableMoves(i, j);
     } else {
         Logic::GetInstance()->Move(selectedI, selectedJ, i, j);
         this->state = NORMAL;
+        this->hintedCells.clear();
     }
 }

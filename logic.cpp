@@ -53,6 +53,15 @@ void Logic::Move(int fromI, int fromJ, int toI, int toJ) {
     this->pieceLogic[fromJ][fromI] = nullptr;
 }
 
+std::vector<std::pair<int, int>> Logic::AvailableMoves(int i, int j) {
+    std::vector<std::pair<int, int>> result;
+
+    result.emplace_back(1, 1);
+    result.emplace_back(2, 2);
+
+    return result;
+}
+
 
 Logic::~Logic() = default;
 

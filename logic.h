@@ -5,6 +5,8 @@
 #ifndef OCM_DESKTOP_LOGIC_H
 #define OCM_DESKTOP_LOGIC_H
 
+#include <vector>
+
 class PieceLogic {
 
 public:
@@ -40,6 +42,9 @@ public:
     static Logic *GetInstance();
 
     PieceLogic *PieceAt(int i, int j);
+
+    std::vector<std::pair<int, int>> AvailableMoves(int i, int j);
+
     void Move(int fromI, int fromJ, int toI, int toJ);
 };
 

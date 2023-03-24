@@ -7,6 +7,7 @@
 
 #include <SDL2/SDL.h>
 #include "piece.h"
+#include <vector>
 
 class Board {
 
@@ -17,12 +18,15 @@ class Board {
     SDL_Color whiteCellFillColor{138, 120, 93, 0};      // Hex: #8a785d
     SDL_Color cellBorderColor{252, 204, 116, 0};        // Hex: #fccc74
     SDL_Color cellHoverBorderColor{23, 23, 140, 0};     // Hex: #17178c
+    SDL_Color cellMoveHintFillColor{220, 211, 234, 0};  // Hex: #dcd3ea
 
     int hoverI = -1;
     int hoverJ = -1;
 
     int selectedI = -1;
     int selectedJ = -1;
+
+    std::vector<std::pair<int, int>> hintedCells;
 
     enum State {
         NORMAL,
