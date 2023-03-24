@@ -22,7 +22,7 @@ void Game::Initialize() {
         exit(2);
     }
 
-    this->window = SDL_CreateWindow("First program", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1024, 768, SDL_WINDOW_OPENGL);
+    this->window = SDL_CreateWindow("First program", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1080, 900, SDL_WINDOW_OPENGL);
     if (window == NULL) {
         std::cout << "Error window creation";
         exit(3);

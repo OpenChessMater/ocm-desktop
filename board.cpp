@@ -3,6 +3,8 @@
 //
 
 #include "board.h"
+#include "logic.h"
+#include "const.h"
 
 void Board::Initialize(SDL_Renderer *renderer) {
     this->piece.Initialize(renderer);
@@ -11,8 +13,11 @@ void Board::Initialize(SDL_Renderer *renderer) {
 void Board::Render(SDL_Renderer *renderer) {
     rect.x = 0;
     rect.y = 0;
-    rect.w = 100;
-    rect.h = 100;
+    rect.w = BOARD_CELL_SIZE;
+    rect.h = BOARD_CELL_SIZE;
+
+
+    auto logic = Logic::GetInstance();
 
     for (int i = 0; i < 8; ++i) {
         for (int j = 0; j < 8; ++j) {
@@ -46,11 +51,40 @@ void Board::Render(SDL_Renderer *renderer) {
 
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
 
+
+    for (int i = 0; i < 8; ++i) {
+        for (int j = 0; j < 8; ++j) {
+            auto p = logic->PieceAt(i, j);
+            if (p != nullptr) {
+                switch (p->role) {
+                    case PieceLogic::PAWN:
+                        this->piece.RenderPawn(renderer, j * BOARD_CELL_SIZE, i *  BOARD_CELL_SIZE, p->white);
+                        break;
+                    case PieceLogic::KNIGHT:
+                        this->piece.RenderKnight(renderer, j * BOARD_CELL_SIZE, i *  BOARD_CELL_SIZE, p->white);
+                        break;
+                    case PieceLogic::BISHOP:
+                        this->piece.RenderBishop(renderer, j * BOARD_CELL_SIZE, i *  BOARD_CELL_SIZE, p->white);
+                        break;
+                    case PieceLogic::ROCK:
+                        this->piece.RenderRock(renderer, j * BOARD_CELL_SIZE, i *  BOARD_CELL_SIZE, p->white);
+                        break;
+                    case PieceLogic::QUEEN:
+                        this->piece.RenderQueen(renderer, j * BOARD_CELL_SIZE, i *  BOARD_CELL_SIZE, p->white);
+                        break;
+                    case PieceLogic::KING:
+                        this->piece.RenderKing(renderer, j * BOARD_CELL_SIZE, i *  BOARD_CELL_SIZE, p->white);
+                        break;
+                }
+            }
+        }
+    }
+
 //    this->piece.RenderPawn(renderer, 300, 100, false);
-    this->piece.RenderKnight(renderer, 200, 100, false);
+//    this->piece.RenderKnight(renderer, 200, 100, false);
 //    this->piece.RenderBishop(renderer, 0, 0, false);
 //    this->piece.RenderRock(renderer, 0, 0, true);
-    this->piece.RenderQueen(renderer, 100, 100, false);
+//    this->piece.RenderQueen(renderer, 100, 100, false);
 //    this->piece.RenderQueen(renderer, 100, 0, false);
 //    this->piece.RenderKing(renderer, 170, 0, true);
 //    this->piece.RenderKing(renderer, 290, 0, false);

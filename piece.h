@@ -7,10 +7,11 @@
 
 #include <SDL2/SDL.h>
 #include <string>
+#include "const.h"
 
 class Piece {
 private:
-    const int board_tile = 100;
+    const int board_tile = BOARD_CELL_SIZE;
 
     const char *whitePawnImagePath = "../resources/w-pawn.209x256.png";
 //    SDL_Rect whitePawnRect = {0, 0, 209, 256};
