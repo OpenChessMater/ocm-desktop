@@ -22,7 +22,7 @@ void Game::Initialize() {
         exit(2);
     }
 
-    this->window = SDL_CreateWindow("First program", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 600, SDL_WINDOW_OPENGL);
+    this->window = SDL_CreateWindow("First program", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1024, 768, SDL_WINDOW_OPENGL);
     if (window == NULL) {
         std::cout << "Error window creation";
         exit(3);
@@ -36,10 +36,13 @@ void Game::Initialize() {
 
     this->tempo.Initialize(this->renderer, 300, 100);
     this->tempo2.Initialize(this->renderer, 100, 100);
+    this->bishop1.Initialize(this->renderer, 150, 100, false);
     this->board.Initialize(this->renderer);
+    this->piece.Initialize(this->renderer);
 }
 
 void Game::Run() {
+
     while (true) {
         SDL_Event e;
         if (SDL_PollEvent(&e)) {
@@ -52,8 +55,14 @@ void Game::Run() {
 
         this->board.Render(this->renderer);
 
-        this->tempo.Render(this->renderer);
-        this->tempo2.Render(this->renderer);
+//        this->tempo.Render(this->renderer);
+//        this->tempo2.Render(this->renderer);
+//        this->bishop1.Render(this->renderer);
+
+//        this->piece.RenderBishop(this->renderer, 0, 0, true);
+//        this->piece.RenderPawn(this->renderer, 300, 100, true);
+//        this->piece.RenderPawn(this->renderer, 150, 400, false);
+        this->piece.RenderQueen(this->renderer, 150, 100, false);
 
         SDL_RenderPresent(this->renderer);
     }
@@ -63,6 +72,8 @@ void Game::Destroy() {
     this->tempo.Destroy();
     this->tempo2.Destroy();
     this->board.Destroy();
+    this->bishop1.Destroy();
+    this->piece.Destroy();
 
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);

@@ -24,8 +24,8 @@ void Board::Render(SDL_Renderer *renderer)
 
     rect.x = 0;
     rect.y = 0;
-    rect.w = 67;
-    rect.h = 67;
+    rect.w = 64;
+    rect.h = 64;
 
     for (int i = 0; i < 8; ++i) {
         for (int j = 0; j < 8; ++j) {

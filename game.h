@@ -8,6 +8,8 @@
 #include <SDL2/SDL.h>
 #include "tempo.h"
 #include "board.h"
+#include "bishop.h"
+#include "piece.h"
 
 class Game
 {
@@ -20,6 +22,8 @@ private:
     Tempo tempo;
     Tempo tempo2;
     Board board;
+    Bishop bishop1;
+    Piece piece;
 
 public:
     Game();
