@@ -2,6 +2,7 @@
 // Created by ahmad on 3/24/23.
 //
 
+#include <iostream>
 #include "board.h"
 #include "logic.h"
 #include "const.h"
@@ -37,7 +38,7 @@ void Board::Render(SDL_Renderer *renderer) {
 
             SDL_RenderFillRect(renderer, &r);
 
-            if (i == 6 && j == 6) {
+            if (i == hoverI && j == hoverJ) {
                 SDL_SetRenderDrawColor(renderer, cellHoverBorderColor.r, cellHoverBorderColor.g, cellHoverBorderColor.b,
                                        cellHoverBorderColor.a);
             } else {
@@ -93,4 +94,25 @@ void Board::Render(SDL_Renderer *renderer) {
 
 void Board::Destroy() {
     this->piece.Destroy();
+}
+
+void Board::MouseMotion(int x, int y)
+{
+    this->hoverI = x / BOARD_CELL_SIZE;
+    this->hoverJ = y / BOARD_CELL_SIZE;
+}
+
+void Board::MouseButtonUp(int x, int y)
+{
+    int i =  x / BOARD_CELL_SIZE;
+    int j =  y / BOARD_CELL_SIZE;
+
+    if (this->state == NORMAL) {
+        this->selectedI = i;
+        this->selectedJ = j;
+        this->state = SELECTED;
+    } else {
+        Logic::GetInstance()->Move(selectedI, selectedJ, i, j);
+        this->state = NORMAL;
+    }
 }

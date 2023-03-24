@@ -40,6 +40,7 @@ public:
     static Logic *GetInstance();
 
     PieceLogic *PieceAt(int i, int j);
+    void Move(int fromI, int fromJ, int toI, int toJ);
 };
 
 

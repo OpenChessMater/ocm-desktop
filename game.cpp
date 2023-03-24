@@ -70,8 +70,17 @@ void Game::handleEvent() {
             this->runningState = false;
         }
 
-        if (e.type == SDL_MOUSEBUTTONDOWN) {
-            this->runningState = false;
+        if (e.type == SDL_MOUSEMOTION || e.type == SDL_MOUSEBUTTONDOWN || e.type == SDL_MOUSEBUTTONUP) {
+            int x, y;
+            SDL_GetMouseState( &x, &y );
+
+            if ((0 <= x && x <= 800) && (0 <= y && y <= 800)) {
+                this->board.MouseMotion(x, y);
+            }
+
+            if (e.type == SDL_MOUSEBUTTONDOWN) {
+                this->board.MouseButtonUp(x, y);
+            }
         }
     }
 }
@@ -80,15 +89,6 @@ void Game::render() {
     SDL_RenderClear(this->renderer);
 
     this->board.Render(this->renderer);
-
-//        this->tempo.Render(this->renderer);
-//        this->tempo2.Render(this->renderer);
-//        this->bishop1.Render(this->renderer);
-
-//        this->piece.RenderBishop(this->renderer, 0, 0, true);
-//        this->piece.RenderPawn(this->renderer, 300, 100, true);
-//        this->piece.RenderPawn(this->renderer, 150, 400, false);
-//        this->piece.RenderQueen(this->renderer, 0, 0, false);
 
     SDL_RenderPresent(this->renderer);
 }

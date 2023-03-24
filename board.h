@@ -18,11 +18,25 @@ class Board {
     SDL_Color cellBorderColor{252, 204, 116, 0};        // Hex: #fccc74
     SDL_Color cellHoverBorderColor{23, 23, 140, 0};     // Hex: #17178c
 
+    int hoverI = -1;
+    int hoverJ = -1;
+
+    int selectedI = -1;
+    int selectedJ = -1;
+
+    enum State {
+        NORMAL,
+        SELECTED
+    }state = NORMAL;
+
     Piece piece;
 public:
     void Initialize(SDL_Renderer *renderer);
 
     void Render(SDL_Renderer *renderer);
+
+    void MouseMotion(int x, int y);
+    void MouseButtonUp(int x, int y);
 
     void Destroy();
 };

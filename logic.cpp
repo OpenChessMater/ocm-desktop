@@ -48,6 +48,11 @@ PieceLogic *Logic::PieceAt(int i, int j) {
     return this->pieceLogic[i][j];
 }
 
+void Logic::Move(int fromI, int fromJ, int toI, int toJ) {
+    this->pieceLogic[toJ][toI] = this->pieceLogic[fromJ][fromI];
+    this->pieceLogic[fromJ][fromI] = nullptr;
+}
+
 
 Logic::~Logic() = default;
 
