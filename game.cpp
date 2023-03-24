@@ -22,13 +22,14 @@ void Game::Initialize() {
         exit(2);
     }
 
-    this->window = SDL_CreateWindow("First program", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1080, 900, SDL_WINDOW_OPENGL);
+    this->window = SDL_CreateWindow("First program", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1080, 900,
+                                    SDL_WINDOW_OPENGL);
     if (window == NULL) {
         std::cout << "Error window creation";
         exit(3);
     }
 
-    this->renderer = SDL_CreateRenderer(window, -1,SDL_RENDERER_ACCELERATED);
+    this->renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
     if (renderer == NULL) {
         std::cout << "Error renderer creation";
         exit(4);
@@ -42,29 +43,9 @@ void Game::Initialize() {
 }
 
 void Game::Run() {
-
-    while (true) {
-        SDL_Event e;
-        if (SDL_PollEvent(&e)) {
-            if (e.type == SDL_QUIT) {
-                break;
-            }
-        }
-
-        SDL_RenderClear(this->renderer);
-
-        this->board.Render(this->renderer);
-
-//        this->tempo.Render(this->renderer);
-//        this->tempo2.Render(this->renderer);
-//        this->bishop1.Render(this->renderer);
-
-//        this->piece.RenderBishop(this->renderer, 0, 0, true);
-//        this->piece.RenderPawn(this->renderer, 300, 100, true);
-//        this->piece.RenderPawn(this->renderer, 150, 400, false);
-//        this->piece.RenderQueen(this->renderer, 0, 0, false);
-
-        SDL_RenderPresent(this->renderer);
+    while (this->runningState) {
+        this->handleEvent();
+        this->render();
     }
 }
 
@@ -79,6 +60,37 @@ void Game::Destroy() {
     SDL_DestroyWindow(window);
     IMG_Quit();
     SDL_Quit();
+}
+
+void Game::handleEvent() {
+    SDL_Event e;
+
+    if (SDL_PollEvent(&e)) {
+        if (e.type == SDL_QUIT) {
+            this->runningState = false;
+        }
+
+        if (e.type == SDL_MOUSEBUTTONDOWN) {
+            this->runningState = false;
+        }
+    }
+}
+
+void Game::render() {
+    SDL_RenderClear(this->renderer);
+
+    this->board.Render(this->renderer);
+
+//        this->tempo.Render(this->renderer);
+//        this->tempo2.Render(this->renderer);
+//        this->bishop1.Render(this->renderer);
+
+//        this->piece.RenderBishop(this->renderer, 0, 0, true);
+//        this->piece.RenderPawn(this->renderer, 300, 100, true);
+//        this->piece.RenderPawn(this->renderer, 150, 400, false);
+//        this->piece.RenderQueen(this->renderer, 0, 0, false);
+
+    SDL_RenderPresent(this->renderer);
 }
 
 Game::~Game() = default;

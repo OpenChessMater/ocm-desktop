@@ -23,6 +23,11 @@ private:
     Bishop bishop1;
     Piece piece;
 
+    bool runningState = true;
+
+    void handleEvent();
+    void render();
+
 public:
     Game();
     void Initialize();
