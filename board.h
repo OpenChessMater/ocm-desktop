@@ -9,18 +9,20 @@
 
 class Board {
 
-    SDL_Rect destrect;
-
     SDL_Rect rect;
-    SDL_Rect rect2;
 
-    SDL_Color color1{87,57,46,0};
-    SDL_Color color2{138,120,93,0};
+    // For color pallet refer to: https://colorswall.com/palette/generate/o/43946
+    SDL_Color blackCellFillColor{87, 57, 46, 0};        // Hex: #573a2e
+    SDL_Color whiteCellFillColor{138, 120, 93, 0};      // Hex: #8a785d
+    SDL_Color cellBorderColor{252, 204, 116, 0};        // Hex: #fccc74
+    SDL_Color cellHoverBorderColor{23, 23, 140, 0};     // Hex: #17178c
 public:
 //    Board();
 
     void Initialize(SDL_Renderer *renderer);
+
     void Render(SDL_Renderer *renderer);
+
     void Destroy();
 
 //    ~Board();
