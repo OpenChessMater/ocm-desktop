@@ -62,7 +62,7 @@ void Game::Run() {
 //        this->piece.RenderBishop(this->renderer, 0, 0, true);
 //        this->piece.RenderPawn(this->renderer, 300, 100, true);
 //        this->piece.RenderPawn(this->renderer, 150, 400, false);
-        this->piece.RenderQueen(this->renderer, 150, 100, false);
+//        this->piece.RenderQueen(this->renderer, 0, 0, false);
 
         SDL_RenderPresent(this->renderer);
     }

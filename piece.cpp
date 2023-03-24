@@ -49,72 +49,72 @@ SDL_Texture *Piece::initializeTexture(SDL_Renderer *renderer, const char *path) 
 
 void Piece::RenderPawn(SDL_Renderer *renderer, int x, int y, bool white) {
     if (white) {
-        this->whitePawnRect.x = x;
-        this->whitePawnRect.y = y;
+        this->whitePawnRect.x = x + (this->board_tile - whitePawnRect.w) / 2;
+        this->whitePawnRect.y = y + (this->board_tile - whitePawnRect.h) / 2;
         SDL_RenderCopy(renderer, this->whitePawnTexture, NULL, &this->whitePawnRect);
     } else {
-        this->blackPawnRect.x = x;
-        this->blackPawnRect.y = y;
+        this->blackPawnRect.x = x + (this->board_tile - blackPawnRect.w) / 2;
+        this->blackPawnRect.y = y + (this->board_tile - blackPawnRect.h) / 2;
         SDL_RenderCopy(renderer, this->blackPawnTexture, NULL, &this->blackPawnRect);
     }
 }
 
 void Piece::RenderKnight(SDL_Renderer *renderer, int x, int y, bool white) {
     if (white) {
-        this->whiteKnightRect.x = x;
-        this->whiteKnightRect.y = y;
+        this->whiteKnightRect.x = x + (this->board_tile - whiteKnightRect.w) / 2;
+        this->whiteKnightRect.y = y + (this->board_tile - whiteKnightRect.h) / 2;
         SDL_RenderCopy(renderer, this->whiteKnightTexture, NULL, &this->whiteKnightRect);
     } else {
-        this->blackKnightRect.x = x;
-        this->blackKnightRect.y = y;
+        this->blackKnightRect.x = x + (this->board_tile - blackKnightRect.w) / 2;
+        this->blackKnightRect.y = y + (this->board_tile - blackKnightRect.h) / 2;
         SDL_RenderCopy(renderer, this->blackKnightTexture, NULL, &this->blackKnightRect);
     }
 }
 
 void Piece::RenderBishop(SDL_Renderer *renderer, int x, int y, bool white) {
     if (white) {
-        this->whiteBishopRect.x = x;
-        this->whiteBishopRect.y = y;
+        this->whiteBishopRect.x = x + (this->board_tile - whiteBishopRect.w) / 2;
+        this->whiteBishopRect.y = y + (this->board_tile - whiteBishopRect.h) / 2;
         SDL_RenderCopy(renderer, this->whiteBishopTexture, NULL, &this->whiteBishopRect);
     } else {
-        this->blackBishopRect.x = x;
-        this->blackBishopRect.y = y;
+        this->blackBishopRect.x = x + (this->board_tile - blackBishopRect.w) / 2;
+        this->blackBishopRect.y = y + (this->board_tile - blackBishopRect.h) / 2;
         SDL_RenderCopy(renderer, this->blackBishopTexture, NULL, &this->blackBishopRect);
     }
 }
 
 void Piece::RenderRock(SDL_Renderer *renderer, int x, int y, bool white) {
     if (white) {
-        this->whiteRockRect.x = x;
-        this->whiteRockRect.y = y;
+        this->whiteRockRect.x = x + (this->board_tile - whiteRockRect.w) / 2;
+        this->whiteRockRect.y = y + (this->board_tile - whiteRockRect.h) / 2;
         SDL_RenderCopy(renderer, this->whiteRockTexture, NULL, &this->whiteRockRect);
     } else {
-        this->blackRockRect.x = x;
-        this->blackRockRect.y = y;
+        this->blackRockRect.x = x + (this->board_tile - blackRockRect.w) / 2;
+        this->blackRockRect.y = y + (this->board_tile - blackRockRect.h) / 2;
         SDL_RenderCopy(renderer, this->blackRockTexture, NULL, &this->blackRockRect);
     }
 }
 
 void Piece::RenderQueen(SDL_Renderer *renderer, int x, int y, bool white) {
     if (white) {
-        this->whiteQueenRect.x = x;
-        this->whiteQueenRect.y = y;
+        this->whiteQueenRect.x = x + (this->board_tile - whiteQueenRect.w) / 2;
+        this->whiteQueenRect.y = y + (this->board_tile - whiteQueenRect.h) / 2;
         SDL_RenderCopy(renderer, this->whiteQueenTexture, NULL, &this->whiteQueenRect);
     } else {
-        this->blackQueenRect.x = x;
-        this->blackQueenRect.y = y;
+        this->blackQueenRect.x = x + (this->board_tile - blackQueenRect.w) / 2;
+        this->blackQueenRect.y = y + (this->board_tile - blackQueenRect.h) / 2;
         SDL_RenderCopy(renderer, this->blackQueenTexture, NULL, &this->blackQueenRect);
     }
 }
 
 void Piece::RenderKing(SDL_Renderer *renderer, int x, int y, bool white) {
     if (white) {
-        this->whiteKingRect.x = x;
-        this->whiteKingRect.y = y;
+        this->whiteKingRect.x = x + (this->board_tile - whiteKingRect.w) / 2;
+        this->whiteKingRect.y = y + (this->board_tile - whiteKingRect.h) / 2;
         SDL_RenderCopy(renderer, this->whiteKingTexture, NULL, &this->whiteKingRect);
     } else {
-        this->blackKingRect.x = x;
-        this->blackKingRect.y = y;
+        this->blackKingRect.x = x + (this->board_tile - blackKingRect.w) / 2;
+        this->blackKingRect.y = y + (this->board_tile - blackKingRect.h) / 2;
         SDL_RenderCopy(renderer, this->blackKingTexture, NULL, &this->blackKingRect);
     }
 }

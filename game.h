@@ -16,8 +16,6 @@ class Game
 private:
     SDL_Window *window{};
     SDL_Renderer *renderer{};
-    SDL_Surface* lettuce_sur{};
-    SDL_Texture* lettuce_tex{};
 
     Tempo tempo;
     Tempo tempo2;
