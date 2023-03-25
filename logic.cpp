@@ -84,7 +84,7 @@ std::vector<std::pair<int, int>> Logic::pawnAvailableMoves(int i, int j, bool si
             auto p = this->pieceLogic[j - 1][i];
             if (p == nullptr) {
                 result.emplace_back(i, j - 1);
-                if (j - 2 >= 0){
+                if (j - 2 >= 0) {
                     p = this->pieceLogic[j - 2][i];
                     if (p == nullptr || p->white != side)
                         result.emplace_back(i, j - 2);
@@ -113,7 +113,67 @@ std::vector<std::pair<int, int>> Logic::pawnAvailableMoves(int i, int j, bool si
 }
 
 std::vector<std::pair<int, int>> Logic::knightAvailableMoves(int i, int j, bool side) {
-    return std::vector<std::pair<int, int>>();
+    std::vector<std::pair<int, int>> result;
+
+    if (j + 1 < 8) {
+        if (i + 2 < 8) {
+            auto p = this->pieceLogic[j + 1][i + 2];
+            if (p == nullptr || p->white != side)
+                result.emplace_back(i + 2, j + 1);
+        }
+
+        if (i - 2 >= 0) {
+            auto p = this->pieceLogic[j + 1][i - 2];
+            if (p == nullptr || p->white != side)
+                result.emplace_back(i - 2, j + 1);
+        }
+
+        // I put this check here as if !(j + 1 < 8) it can not be (j + 2 < 8)
+        if (j + 2 < 8) {
+            if (i + 1 < 8) {
+                auto p = this->pieceLogic[j + 2][i + 1];
+                if (p == nullptr || p->white != side)
+                    result.emplace_back(i + 1, j + 2);
+            }
+
+            if (i - 1 >= 0) {
+                auto p = this->pieceLogic[j + 2][i - 1];
+                if (p == nullptr || p->white != side)
+                    result.emplace_back(i - 1, j + 2);
+            }
+        }
+    }
+
+    if (j - 1 >= 0) {
+        if (i + 2 < 8) {
+            auto p = this->pieceLogic[j - 1][i + 2];
+            if (p == nullptr || p->white != side)
+                result.emplace_back(i + 2, j - 1);
+        }
+
+        if (i - 2 >= 0) {
+            auto p = this->pieceLogic[j - 1][i - 2];
+            if (p == nullptr || p->white != side)
+                result.emplace_back(i - 2, j - 1);
+        }
+
+        // I put this check here as if !(j - 1 >= 0) it can not be (j - 2 >= 8)
+        if (j - 2 >= 0) {
+            if (i + 1 < 8) {
+                auto p = this->pieceLogic[j - 2][i + 1];
+                if (p == nullptr || p->white != side)
+                    result.emplace_back(i + 1, j - 2);
+            }
+
+            if (i - 1 >= 0) {
+                auto p = this->pieceLogic[j - 2][i - 1];
+                if (p == nullptr || p->white != side)
+                    result.emplace_back(i - 1, j - 2);
+            }
+        }
+    }
+
+    return result;
 }
 
 std::vector<std::pair<int, int>> Logic::bishopAvailableMoves(int i, int j, bool side) {
