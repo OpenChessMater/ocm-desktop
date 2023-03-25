@@ -177,7 +177,74 @@ std::vector<std::pair<int, int>> Logic::knightAvailableMoves(int i, int j, bool 
 }
 
 std::vector<std::pair<int, int>> Logic::bishopAvailableMoves(int i, int j, bool side) {
-    return std::vector<std::pair<int, int>>();
+    std::vector<std::pair<int, int>> result;
+
+    int indexI, indexJ;
+    indexI = i + 1;
+    indexJ = j + 1;
+    for (; indexI < 8 && indexJ < 8;) {
+        auto p = this->pieceLogic[indexJ][indexI];
+        if (p == nullptr) {
+            result.emplace_back(indexI, indexJ);
+        } else {
+            if (p->white != side)
+                result.emplace_back(indexI, indexJ);
+            break;
+        }
+
+        ++indexI;
+        ++indexJ;
+    }
+
+    indexI = i - 1;
+    indexJ = j + 1;
+    for (; indexI >= 0 && indexJ < 8;) {
+        auto p = this->pieceLogic[indexJ][indexI];
+        if (p == nullptr) {
+            result.emplace_back(indexI, indexJ);
+        } else {
+            if (p->white != side)
+                result.emplace_back(indexI, indexJ);
+            break;
+        }
+
+        --indexI;
+        ++indexJ;
+    }
+
+    indexI = i - 1;
+    indexJ = j - 1;
+    for (; indexI >= 0 && indexJ >= 0;) {
+        auto p = this->pieceLogic[indexJ][indexI];
+        if (p == nullptr) {
+            result.emplace_back(indexI, indexJ);
+        } else {
+            if (p->white != side)
+                result.emplace_back(indexI, indexJ);
+            break;
+        }
+
+        --indexI;
+        --indexJ;
+    }
+
+    indexI = i + 1;
+    indexJ = j - 1;
+    for (; indexI < 8 && indexJ >= 0;) {
+        auto p = this->pieceLogic[indexJ][indexI];
+        if (p == nullptr) {
+            result.emplace_back(indexI, indexJ);
+        } else {
+            if (p->white != side)
+                result.emplace_back(indexI, indexJ);
+            break;
+        }
+
+        ++indexI;
+        --indexJ;
+    }
+
+    return result;
 }
 
 std::vector<std::pair<int, int>> Logic::rockAvailableMoves(int i, int j, bool side) {
