@@ -248,7 +248,54 @@ std::vector<std::pair<int, int>> Logic::bishopAvailableMoves(int i, int j, bool 
 }
 
 std::vector<std::pair<int, int>> Logic::rockAvailableMoves(int i, int j, bool side) {
-    return std::vector<std::pair<int, int>>();
+    std::vector<std::pair<int, int>> result;
+
+    for (int k = i + 1; k < 8; ++k) {
+        auto p = this->pieceLogic[j][k];
+        if (p == nullptr) {
+            result.emplace_back(k, j);
+        } else {
+            if (p->white != side)
+                result.emplace_back(k, j);
+            break;
+        }
+    }
+
+    for (int k = i - 1; k >= 0; --k) {
+        auto p = this->pieceLogic[j][k];
+        if (p == nullptr) {
+            result.emplace_back(k, j);
+        } else {
+            if (p->white != side)
+                result.emplace_back(k, j);
+            break;
+        }
+    }
+
+    for (int k = j + 1; k < 8; ++k) {
+        auto p = this->pieceLogic[k][i];
+        if (p == nullptr) {
+            result.emplace_back(i, k);
+        } else {
+            if (p->white != side)
+                result.emplace_back(i, k);
+            break;
+        }
+    }
+
+
+    for (int k = j - 1; k >= 0; --k) {
+        auto p = this->pieceLogic[k][i];
+        if (p == nullptr) {
+            result.emplace_back(i, k);
+        } else {
+            if (p->white != side)
+                result.emplace_back(i, k);
+            break;
+        }
+    }
+
+    return result;
 }
 
 std::vector<std::pair<int, int>> Logic::queenAvailableMoves(int i, int j, bool side) {
