@@ -17,7 +17,7 @@ public:
         ROCK,
         QUEEN,
         KING
-    }role;
+    } role;
 
     bool white;
 
@@ -27,16 +27,26 @@ public:
 class Logic {
 
 private:
-    static Logic * instance_;
+    static Logic *instance_;
 
     PieceLogic *pieceLogic[8][8] = {nullptr};
 
+    bool white = true; // If true shows that white pieces are down of the board and they move upward (y index will decrease)
+
 protected:
     Logic();
+
     ~Logic();
 
+    std::vector<std::pair<int, int>> pawnAvailableMoves(int i, int j, bool side);
+    std::vector<std::pair<int, int>> knightAvailableMoves(int i, int j, bool side);
+    std::vector<std::pair<int, int>> bishopAvailableMoves(int i, int j, bool side);
+    std::vector<std::pair<int, int>> rockAvailableMoves(int i, int j, bool side);
+    std::vector<std::pair<int, int>> queenAvailableMoves(int i, int j, bool side);
+    std::vector<std::pair<int, int>> kingAvailableMoves(int i, int j, bool side);
 public:
     Logic(Logic &other) = delete;
+
     void operator=(const Logic &) = delete;
 
     static Logic *GetInstance();

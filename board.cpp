@@ -74,22 +74,22 @@ void Board::Render(SDL_Renderer *renderer) {
             if (p != nullptr) {
                 switch (p->role) {
                     case PieceLogic::PAWN:
-                        this->piece.RenderPawn(renderer, j * BOARD_CELL_SIZE, i *  BOARD_CELL_SIZE, p->white);
+                        this->piece.RenderPawn(renderer, i * BOARD_CELL_SIZE, j *  BOARD_CELL_SIZE, p->white);
                         break;
                     case PieceLogic::KNIGHT:
-                        this->piece.RenderKnight(renderer, j * BOARD_CELL_SIZE, i *  BOARD_CELL_SIZE, p->white);
+                        this->piece.RenderKnight(renderer, i * BOARD_CELL_SIZE, j *  BOARD_CELL_SIZE, p->white);
                         break;
                     case PieceLogic::BISHOP:
-                        this->piece.RenderBishop(renderer, j * BOARD_CELL_SIZE, i *  BOARD_CELL_SIZE, p->white);
+                        this->piece.RenderBishop(renderer, i * BOARD_CELL_SIZE, j *  BOARD_CELL_SIZE, p->white);
                         break;
                     case PieceLogic::ROCK:
-                        this->piece.RenderRock(renderer, j * BOARD_CELL_SIZE, i *  BOARD_CELL_SIZE, p->white);
+                        this->piece.RenderRock(renderer, i * BOARD_CELL_SIZE, j *  BOARD_CELL_SIZE, p->white);
                         break;
                     case PieceLogic::QUEEN:
-                        this->piece.RenderQueen(renderer, j * BOARD_CELL_SIZE, i *  BOARD_CELL_SIZE, p->white);
+                        this->piece.RenderQueen(renderer, i * BOARD_CELL_SIZE, j *  BOARD_CELL_SIZE, p->white);
                         break;
                     case PieceLogic::KING:
-                        this->piece.RenderKing(renderer, j * BOARD_CELL_SIZE, i *  BOARD_CELL_SIZE, p->white);
+                        this->piece.RenderKing(renderer, i * BOARD_CELL_SIZE, j *  BOARD_CELL_SIZE, p->white);
                         break;
                 }
             }
