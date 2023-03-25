@@ -299,7 +299,12 @@ std::vector<std::pair<int, int>> Logic::rockAvailableMoves(int i, int j, bool si
 }
 
 std::vector<std::pair<int, int>> Logic::queenAvailableMoves(int i, int j, bool side) {
-    return std::vector<std::pair<int, int>>();
+    auto bishopResult = this->bishopAvailableMoves(i, j, side);
+    auto rockResult = this->rockAvailableMoves(i, j, side);
+
+    bishopResult.insert(bishopResult.begin(), rockResult.begin(), rockResult.end());
+
+    return bishopResult;
 }
 
 std::vector<std::pair<int, int>> Logic::kingAvailableMoves(int i, int j, bool side) {
