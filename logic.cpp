@@ -308,7 +308,58 @@ std::vector<std::pair<int, int>> Logic::queenAvailableMoves(int i, int j, bool s
 }
 
 std::vector<std::pair<int, int>> Logic::kingAvailableMoves(int i, int j, bool side) {
-    return std::vector<std::pair<int, int>>();
+    std::vector<std::pair<int, int>> result;
+
+    if (i - 1 >= 0) {
+        auto p = this->pieceLogic[j][i - 1];
+        if (p == nullptr || p->white != side)
+            result.emplace_back(i - 1, j);
+    }
+
+    if (i + 1 < 8) {
+        auto p = this->pieceLogic[j][i + 1];
+        if (p == nullptr || p->white != side)
+            result.emplace_back(i + 1, j);
+    }
+
+    if (j - 1 >= 0) {
+        auto p = this->pieceLogic[j - 1][i];
+        if (p == nullptr || p->white != side)
+            result.emplace_back(i, j - 1);
+    }
+
+    if (j + 1 < 8) {
+        auto p = this->pieceLogic[j + 1][i];
+        if (p == nullptr || p->white != side)
+            result.emplace_back(i, j + 1);
+    }
+
+
+    if (i - 1 >= 0 && j - 1 >= 0) {
+        auto p = this->pieceLogic[j - 1][i - 1];
+        if (p == nullptr || p->white != side)
+            result.emplace_back(i - 1, j - 1);
+    }
+
+    if (i + 1 < 8 && j - 1 >= 0) {
+        auto p = this->pieceLogic[j - 1][i + 1];
+        if (p == nullptr || p->white != side)
+            result.emplace_back(i + 1, j - 1);
+    }
+
+    if (i - 1 >= 0 && j + 1 < 8) {
+        auto p = this->pieceLogic[j + 1][i - 1];
+        if (p == nullptr || p->white != side)
+            result.emplace_back(i - 1, j + 1);
+    }
+
+    if (i + 1 < 8 && j + 1 < 8) {
+        auto p = this->pieceLogic[j + 1][i + 1];
+        if (p == nullptr || p->white != side)
+            result.emplace_back(i + 1, j + 1);
+    }
+
+    return result;
 }
 
 
