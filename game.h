@@ -10,6 +10,7 @@
 #include "board.h"
 #include "bishop.h"
 #include "piece.h"
+#include "attacked_board.h"
 
 class Game
 {
@@ -22,6 +23,7 @@ private:
     Board board;
     Bishop bishop1;
     Piece piece;
+    AttackedBoard attack_board;
 
     bool runningState = true;
 

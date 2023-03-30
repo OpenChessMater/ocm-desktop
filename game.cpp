@@ -5,6 +5,7 @@
 #include "game.h"
 
 #include <SDL2/SDL_image.h>
+#include <SDL2/SDL_ttf.h>
 #include <iostream>
 
 
@@ -12,12 +13,19 @@ Game::Game() = default;
 
 
 void Game::Initialize() {
-    if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS) < 0) {
+    if (SDL_Init(SDL_INIT_EVERYTHING) < 0) {
         std::cout << "Error SDL2 Initialization : " << SDL_GetError();
         exit(1);
     }
 
     if (IMG_Init(IMG_INIT_PNG) == 0) {
+        std::cout << "Error SDL2_image Initialization";
+        exit(2);
+    }
+
+    //Initialize SDL_ttf
+    if( TTF_Init() == -1 )
+    {
         std::cout << "Error SDL2_image Initialization";
         exit(2);
     }
@@ -40,6 +48,7 @@ void Game::Initialize() {
     this->bishop1.Initialize(this->renderer, 150, 100, false);
     this->board.Initialize(this->renderer);
     this->piece.Initialize(this->renderer);
+    this->attack_board.Initialize(this->renderer);
 }
 
 void Game::Run() {
@@ -55,6 +64,7 @@ void Game::Destroy() {
     this->board.Destroy();
     this->bishop1.Destroy();
     this->piece.Destroy();
+    this->attack_board.Destroy();
 
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
@@ -89,6 +99,7 @@ void Game::render() {
     SDL_RenderClear(this->renderer);
 
     this->board.Render(this->renderer);
+    this->attack_board.Render(this->renderer);
 
     SDL_RenderPresent(this->renderer);
 }
