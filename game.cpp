@@ -24,16 +24,14 @@ void Game::Initialize() {
     }
 
     //Initialize SDL_ttf
-    if( TTF_Init() == -1 )
-    {
+    if (TTF_Init() == -1) {
         std::cout << "Error SDL2_image Initialization";
         exit(2);
     }
 
-    font = TTF_OpenFont( "16_true_type_fonts/lazy.ttf", 28 );
-    if( font == NULL )
-    {
-        std::cout <<"Failed to load lazy font! SDL_ttf Error:" << std::endl << TTF_GetError();
+    font = TTF_OpenFont("16_true_type_fonts/lazy.ttf", 40);
+    if (font == NULL) {
+        std::cout << "Failed to load lazy font! SDL_ttf Error:" << std::endl << TTF_GetError();
         exit(2);
     }
 
@@ -93,7 +91,7 @@ void Game::handleEvent() {
 
         if (e.type == SDL_MOUSEMOTION || e.type == SDL_MOUSEBUTTONDOWN || e.type == SDL_MOUSEBUTTONUP) {
             int x, y;
-            SDL_GetMouseState( &x, &y );
+            SDL_GetMouseState(&x, &y);
 
             if ((0 <= x && x <= 800) && (0 <= y && y <= 800)) {
                 this->board.MouseMotion(x, y);
