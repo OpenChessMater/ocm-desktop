@@ -30,6 +30,13 @@ void Game::Initialize() {
         exit(2);
     }
 
+    font = TTF_OpenFont( "16_true_type_fonts/lazy.ttf", 28 );
+    if( font == NULL )
+    {
+        std::cout <<"Failed to load lazy font! SDL_ttf Error:" << std::endl << TTF_GetError();
+        exit(2);
+    }
+
     this->window = SDL_CreateWindow("First program", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1080, 900,
                                     SDL_WINDOW_OPENGL);
     if (window == NULL) {
@@ -48,7 +55,7 @@ void Game::Initialize() {
     this->bishop1.Initialize(this->renderer, 150, 100, false);
     this->board.Initialize(this->renderer);
     this->piece.Initialize(this->renderer);
-    this->attack_board.Initialize(this->renderer);
+    this->attack_board.Initialize(this->renderer, this->font);
 }
 
 void Game::Run() {
@@ -66,8 +73,12 @@ void Game::Destroy() {
     this->piece.Destroy();
     this->attack_board.Destroy();
 
+    TTF_CloseFont(this->font);
+
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
+
+    TTF_Quit();
     IMG_Quit();
     SDL_Quit();
 }

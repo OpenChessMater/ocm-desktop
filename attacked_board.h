@@ -6,12 +6,16 @@
 #define OCM_DESKTOP_ATTACKED_BOARD_H
 
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_ttf.h>
 #include "piece.h"
 
 class AttackedBoard {
     Piece piece;
+
+    SDL_Texture *textTexture;
+    SDL_Rect textDstRect;
 public:
-    void Initialize(SDL_Renderer *renderer);
+    void Initialize(SDL_Renderer *renderer, TTF_Font *font);
 
     void Render(SDL_Renderer *renderer);
 

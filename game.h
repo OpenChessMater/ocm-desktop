@@ -6,6 +6,7 @@
 #define OCM_DESKTOP_GAME_H
 
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_ttf.h>
 #include "tempo.h"
 #include "board.h"
 #include "bishop.h"
@@ -17,6 +18,7 @@ class Game
 private:
     SDL_Window *window{};
     SDL_Renderer *renderer{};
+    TTF_Font *font;
 
     Tempo tempo;
     Tempo tempo2;
