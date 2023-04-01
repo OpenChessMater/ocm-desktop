@@ -4,7 +4,6 @@
 
 #include "logic.h"
 
-
 Logic *Logic::instance_{nullptr};
 
 Logic::Logic() {
@@ -46,6 +45,50 @@ PieceLogic *Logic::PieceAt(int i, int j) {
 }
 
 void Logic::Move(int fromI, int fromJ, int toI, int toJ) {
+    if (this->pieceLogic[toJ][toI] != nullptr) {
+        switch (this->pieceLogic[toJ][toI]->role) {
+            case PieceLogic::PAWN:
+                if (this->pieceLogic[toJ][toI]->white){
+                    this->whitePawnAttackedCount++;
+                } else {
+                    this->blackPawnAttackedCount++;
+                }
+                break;
+            case PieceLogic::KNIGHT:
+                if (this->pieceLogic[toJ][toI]->white) {
+                    this->whiteKnightAttackedCount++;
+                } else {
+                    this->blackKnightAttackedCount++;
+                }
+                break;
+            case PieceLogic::BISHOP:
+                if (this->pieceLogic[toJ][toI]->white) {
+                    this->whiteBishopAttackedCount++;
+                } else {
+                    this->blackBishopAttackedCount++;
+                }
+                break;
+            case PieceLogic::ROCK:
+                if (this->pieceLogic[toJ][toI]->white) {
+                    this->whiteRockAttackedCount++;
+                }else {
+                    this->blackRockAttackedCount++;
+                }
+                break;
+            case PieceLogic::QUEEN:
+                if (this->pieceLogic[toJ][toI]->white) {
+                    this->whiteQueenAttackedCount++;
+                } else {
+                    this->blackQueenAttackedCount++;
+                }
+                break;
+            case PieceLogic::KING:
+                // TODO: Remove it in the future
+                exit(-1);
+                break;
+        }
+    }
+
     this->pieceLogic[toJ][toI] = this->pieceLogic[fromJ][fromI];
     this->pieceLogic[fromJ][fromI] = nullptr;
 }
@@ -362,6 +405,25 @@ std::vector<std::pair<int, int>> Logic::kingAvailableMoves(int i, int j, bool si
     return result;
 }
 
+int Logic::PawnAttackedCount(bool _white) {
+    return _white?this->whitePawnAttackedCount:this->blackPawnAttackedCount;
+}
+
+int Logic::KnightAttackedCount(bool _white) {
+    return _white?this->whiteKnightAttackedCount:this->blackKnightAttackedCount;
+}
+
+int Logic::BishopAttackedCount(bool _white) {
+    return _white?this->whiteBishopAttackedCount:this->blackBishopAttackedCount;
+}
+
+int Logic::RockAttackedCount(bool _white) {
+    return _white?this->whiteRockAttackedCount:this->blackRockAttackedCount;
+}
+
+int Logic::QueenAttackedCount(bool _white) {
+    return _white?this->whiteQueenAttackedCount:this->blackQueenAttackedCount;
+}
 
 Logic::~Logic() = default;
 
