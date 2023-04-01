@@ -9,16 +9,9 @@
 
 void AttackedBoard::Initialize(SDL_Renderer *renderer, TTF_Font *font) {
     this->piece.Initialize(renderer);
-    SDL_Surface *surface;
 
     this->_font = font;
     this->_renderer = renderer;
-
-    surface = TTF_RenderText_Solid(font, "2x", color1);
-
-    textTexture = SDL_CreateTextureFromSurface(renderer, surface);
-
-    SDL_FreeSurface(surface);
 
     this->hasht = 820;
     this->masht = 1010;
