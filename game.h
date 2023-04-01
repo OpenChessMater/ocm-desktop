@@ -6,22 +6,26 @@
 #define OCM_DESKTOP_GAME_H
 
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_ttf.h>
 #include "tempo.h"
 #include "board.h"
 #include "bishop.h"
 #include "piece.h"
+#include "attacked_board.h"
 
 class Game
 {
 private:
     SDL_Window *window{};
     SDL_Renderer *renderer{};
+    TTF_Font *font;
 
     Tempo tempo;
     Tempo tempo2;
     Board board;
     Bishop bishop1;
     Piece piece;
+    AttackedBoard attack_board;
 
     bool runningState = true;
 

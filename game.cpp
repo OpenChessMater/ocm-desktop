@@ -5,6 +5,7 @@
 #include "game.h"
 
 #include <SDL2/SDL_image.h>
+#include <SDL2/SDL_ttf.h>
 #include <iostream>
 
 
@@ -12,13 +13,25 @@ Game::Game() = default;
 
 
 void Game::Initialize() {
-    if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS) < 0) {
+    if (SDL_Init(SDL_INIT_EVERYTHING) < 0) {
         std::cout << "Error SDL2 Initialization : " << SDL_GetError();
         exit(1);
     }
 
     if (IMG_Init(IMG_INIT_PNG) == 0) {
         std::cout << "Error SDL2_image Initialization";
+        exit(2);
+    }
+
+    //Initialize SDL_ttf
+    if (TTF_Init() == -1) {
+        std::cout << "Error SDL2_image Initialization";
+        exit(2);
+    }
+
+    font = TTF_OpenFont("16_true_type_fonts/lazy.ttf", 40);
+    if (font == NULL) {
+        std::cout << "Failed to load lazy font! SDL_ttf Error:" << std::endl << TTF_GetError();
         exit(2);
     }
 
@@ -40,6 +53,7 @@ void Game::Initialize() {
     this->bishop1.Initialize(this->renderer, 150, 100, false);
     this->board.Initialize(this->renderer);
     this->piece.Initialize(this->renderer);
+    this->attack_board.Initialize(this->renderer, this->font);
 }
 
 void Game::Run() {
@@ -55,9 +69,14 @@ void Game::Destroy() {
     this->board.Destroy();
     this->bishop1.Destroy();
     this->piece.Destroy();
+    this->attack_board.Destroy();
+
+    TTF_CloseFont(this->font);
 
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
+
+    TTF_Quit();
     IMG_Quit();
     SDL_Quit();
 }
@@ -72,7 +91,7 @@ void Game::handleEvent() {
 
         if (e.type == SDL_MOUSEMOTION || e.type == SDL_MOUSEBUTTONDOWN || e.type == SDL_MOUSEBUTTONUP) {
             int x, y;
-            SDL_GetMouseState( &x, &y );
+            SDL_GetMouseState(&x, &y);
 
             if ((0 <= x && x <= 800) && (0 <= y && y <= 800)) {
                 this->board.MouseMotion(x, y);
@@ -89,6 +108,7 @@ void Game::render() {
     SDL_RenderClear(this->renderer);
 
     this->board.Render(this->renderer);
+    this->attack_board.Render(this->renderer);
 
     SDL_RenderPresent(this->renderer);
 }

@@ -33,6 +33,17 @@ private:
 
     bool white = true; // If true shows that white pieces are down of the board and they move upward (y index will decrease)
 
+    int whitePawnAttackedCount = 0;
+    int whiteKnightAttackedCount = 0;
+    int whiteBishopAttackedCount = 0;
+    int whiteRockAttackedCount = 0;
+    int whiteQueenAttackedCount = 0;
+    int blackPawnAttackedCount = 0;
+    int blackKnightAttackedCount = 0;
+    int blackBishopAttackedCount = 0;
+    int blackRockAttackedCount = 0;
+    int blackQueenAttackedCount = 0;
+
 protected:
     Logic();
 
@@ -56,6 +67,12 @@ public:
     std::vector<std::pair<int, int>> AvailableMoves(int i, int j);
 
     void Move(int fromI, int fromJ, int toI, int toJ);
+
+    int PawnAttackedCount(bool white);
+    int KnightAttackedCount(bool white);
+    int BishopAttackedCount(bool white);
+    int RockAttackedCount(bool white);
+    int QueenAttackedCount(bool white);
 };
 
 
